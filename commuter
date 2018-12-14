@@ -1,12 +1,32 @@
 #!/bin/bash
 
+# Load the variables
+source config
+
+case $1 in
+-w)
+	ORIGIN_LON=$HOME_LON
+	ORIGIN_LAT=$HOME_LAT
+	DESTINATION_LON=$WORK_LON
+	DESTINATION_LAT=$WORK_LAT
+	;;
+-h)
+	ORIGIN_LON=$WORK_LON
+	ORIGIN_LAT=$WORK_LAT
+	DESTINATION_LON=$HOME_LON
+	DESTINATION_LAT=$HOME_LAT
+	;;
+*)
+	echo "Use -w to go to work and -h to go home"
+	exit 1
+esac
+
 echo "<html>" > route
 echo "<body>" >> route
 echo "<h1>Here is your commute.<h1>" >> route
-echo "<a href=\"https://www.waze.com/livemap?at=now&from_lat=$HOME_LAT&from_lon=$HOME_LON&to_lat=$WORK_LAT&to_lon=$WORK_LON\">Click here</a>" > route
+echo "<a href=\"https://www.waze.com/livemap?at=now&from_lat=$ORIGIN_LAT&from_lon=$ORIGIN_LON&to_lat=$DESTINATION_LAT&to_lon=$DESTINATION_LON\">Click here</a>" >> route
 echo "</body>" >> route
 echo "</html>" >> route
 
 mutt -s "Commute" $EMAIL < ./route
 
-#echo "https://www.waze.com/livemap?at=now&from_lat=$WORK_LAT&from_lon=$WORK_LON&to_lat=$HOME_LAT&to_lon=$HOME_LON" > to_home
