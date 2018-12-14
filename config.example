@@ -1,0 +1,9 @@
+#!/bin/bash
+# Rename this file to config and fill out the following variables
+
+HOME_LAT=0.0
+HOME_LON=0.0
+WORK_LAT=0.0
+WORK_LON=0.0
+
+EMAIL="user@site.com"
